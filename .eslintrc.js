@@ -1,5 +1,3 @@
-/** @format */
-
 module.exports = {
   env: {
     browser: true,
@@ -12,10 +10,15 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   plugins: ['react', 'html'],
+  parser: '@babel/eslint-parser',
   parserOptions: {
     sourceType: 'module',
+    allowImportExportEverywhere: true,
     ecmaFeatures: {
-      jsx: true,
+      globalReturn: false,
+    },
+    babelOptions: {
+      configFile: './.babelrc.json',
     },
   },
   rules: {

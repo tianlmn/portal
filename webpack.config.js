@@ -1,5 +1,9 @@
+//const fs = require('fs')
 const path = require('path')
-//const HtmlWebpackPlugin = require('html-webpack-plugin')
+//const babelConfig = fs.readFileSync(`${process.cwd()}/.babelrc.json`, 'utf-8')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
+const PUBLIC_PATH = '/portal/'
 
 module.exports = {
   mode: 'development',
@@ -10,11 +14,18 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].bundle.js',
+    clean: true,
+    publicPath: PUBLIC_PATH,
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 9000,
+    hot: true,
+    open: true,
+    headers: {
+      'X-Http-Request': 'sean',
+    },
   },
   module: {
     rules: [
@@ -34,10 +45,11 @@ module.exports = {
       },
     ],
   },
-
-  //   plugins: [
-  //     new HtmlWebpackPlugin({
-  //       title: 'Development',
-  //     }),
-  //   ],
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Development',
+      filename: (entryName) => entryName + '.html',
+      template: path.resolve(__dirname, `./src/index.html`),
+    }),
+  ],
 }

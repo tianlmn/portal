@@ -2,4 +2,6 @@ import App from './app'
 import ReactDom from 'react-dom'
 import React from 'react'
 
-ReactDom.render(<App />, document.getElementById('root'))
+if (document.getElementById('root')) {
+  ReactDom.render(<App />, document.getElementById('root'))
+}
