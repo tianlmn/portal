@@ -2,6 +2,7 @@
 const path = require('path')
 //const babelConfig = fs.readFileSync(`${process.cwd()}/.babelrc.json`, 'utf-8')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
 
 const PUBLIC_PATH = '/portal/'
 
@@ -17,12 +18,14 @@ module.exports = {
     clean: true,
     publicPath: PUBLIC_PATH,
   },
+
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 9000,
+    port: 8888,
     hot: true,
-    open: true,
+    open: 'Google Chrome',
+    openPage: 'index.html',
     headers: {
       'X-Http-Request': 'sean',
     },
@@ -48,6 +51,7 @@ module.exports = {
           {
             loader: 'css-loader',
           },
+          'resolve-url-loader',
           {
             loader: 'sass-loader',
             options: {
@@ -63,6 +67,9 @@ module.exports = {
       title: 'Development',
       filename: (entryName) => entryName + '.html',
       template: path.resolve(__dirname, `./src/index.html`),
+    }),
+    new webpack.ProvidePlugin({
+      React: 'react',
     }),
   ],
 }

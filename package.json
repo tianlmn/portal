@@ -1,5 +1,5 @@
 {
-  "name": "portal",
+  "name": "fayi",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,7 @@
     "dev": "webpack && npx webpack serve"
   },
   "keywords": [],
-  "author": "",
+  "author": "bluefairy",
   "license": "ISC",
   "dependencies": {
     "react": "^17.0.2",

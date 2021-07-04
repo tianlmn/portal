@@ -1,36 +1,58 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useState, createRef } from 'react'
+import useWindowSize from './hook/usewindowsize'
 import './app.css'
 
-export class App extends Component {
+export default class App extends Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     return (
       <>
-        <p>111</p>
-        <p>111</p>
+        <Foo>
+          <Counter></Counter>
+          <WindowSize></WindowSize>
+        </Foo>
       </>
     )
   }
 }
 
-export default function Counter() {
+const Foo = ({ children }) => {
+  return <div>{children}</div>
+}
+
+const Counter = () => {
   const [count, setCount] = useState(0)
+  const [countcb, setCountcb] = useState(0)
   function handleClick() {
     setTimeout(() => {
       setCount(count + 1)
-    }, 10000)
+    }, 2000)
   }
   function handleClickFn() {
     setTimeout(() => {
-      setCount((prevCount) => {
+      setCountcb((prevCount) => {
         return prevCount + 1
       })
-    }, 10000)
+    }, 2000)
   }
   return (
     <>
       Count: {count}
+      Countcb: {countcb}
       <button onClick={handleClick}>+</button>
       <button onClick={handleClickFn}>+</button>
     </>
+  )
+}
+
+const WindowSize = () => {
+  const windowSize = useWindowSize()
+  return (
+    <div>
+      <div>{windowSize}</div>
+    </div>
   )
 }

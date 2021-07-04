@@ -32,5 +32,6 @@ module.exports = {
     ],
     'no-irregular-whitespace': 1,
     'no-unused-vars': 1,
+    'react/prop-types': 0,
   },
 }
