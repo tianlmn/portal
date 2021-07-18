@@ -22,7 +22,7 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 8888,
+    port: 9999,
     hot: true,
     open: 'Google Chrome',
     openPage: 'index.html',

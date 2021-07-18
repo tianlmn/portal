@@ -1,27 +1,52 @@
-import React, { Component, useState, createRef } from 'react'
+import React, {
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+  forwardRef,
+} from 'react'
 import useWindowSize from './hook/usewindowsize'
+import usePreValue from './hook/usePreValue'
+import MyForm from './component/myForm'
 import './app.css'
 
-export default class App extends Component {
-  constructor(props) {
-    super(props)
-  }
+const App = function () {
+  const [time, setTime] = useState(Date.now())
+  const foo = useRef(null)
+  const handleClick = useCallback(() => {
+    setTime(Date.now())
+  }, [])
 
-  render() {
-    return (
-      <>
-        <Foo>
-          <Counter></Counter>
-          <WindowSize></WindowSize>
-        </Foo>
-      </>
-    )
-  }
+  useEffect(() => {
+    foo.current.addEventListener('click', handleClick)
+    return () => {
+      foo.current.removeEventListener('click', handleClick)
+    }
+  }, [])
+
+  return (
+    <Foo ref={foo}>
+      <Counter></Counter>
+      <WindowSize></WindowSize>
+      <PreValue time={time}></PreValue>
+      <MyForm />
+      <input type="button" value="click" />
+    </Foo>
+  )
 }
 
-const Foo = ({ children }) => {
-  return <div>{children}</div>
+const PreValue = ({ time }) => {
+  return (
+    <div>
+      <p>now:{time}</p>
+      <p>pre:{usePreValue(time)}</p>
+    </div>
+  )
 }
+
+const Foo = forwardRef((props, ref) => {
+  return <div ref={ref}>{props.children}</div>
+})
 
 const Counter = () => {
   const [count, setCount] = useState(0)
@@ -48,11 +73,13 @@ const Counter = () => {
   )
 }
 
-const WindowSize = () => {
+const WindowSize = React.memo(() => {
   const windowSize = useWindowSize()
   return (
     <div>
       <div>{windowSize}</div>
     </div>
   )
-}
+})
+
+export default App
