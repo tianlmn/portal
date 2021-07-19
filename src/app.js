@@ -5,25 +5,30 @@ import React, {
   useEffect,
   forwardRef,
 } from 'react'
-import useWindowSize from './hook/usewindowsize'
-import usePreValue from './hook/usePreValue'
+import useWindowSize from './hooks/usewindowsize'
+import usePreValue from './hooks/usePreValue'
 import MyForm from './component/myForm'
-import FancyInput from './hook/FancyInput'
+import FancyInput from './hooks/FancyInput'
+import useSingleton from './hooks/useSingleton'
 import './app.css'
 
 const App = function () {
   const [time, setTime] = useState(Date.now())
   const foo = useRef(null)
+  useSingleton(() => {
+    console.log('only once')
+  })
   const handleClick = useCallback(() => {
     setTime(Date.now())
   }, [])
 
   useEffect(() => {
-    foo.current.addEventListener('click', handleClick)
+    const clickAres = foo.current
+    clickAres.addEventListener('click', handleClick)
     return () => {
-      foo.current.removeEventListener('click', handleClick)
+      clickAres.removeEventListener('click', handleClick)
     }
-  }, [])
+  }, [handleClick])
 
   return (
     <Foo ref={foo}>

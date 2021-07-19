@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  useRef,
-  useImperativeHandle,
-  useCallback,
-} from 'react'
+import { useState, useRef, useImperativeHandle, useCallback } from 'react'
 
 const FancyInput = React.forwardRef((props, ref) => {
   const [fresh, setFresh] = useState(false)

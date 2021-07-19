@@ -1,15 +1,18 @@
-import useForm from '../hook/useForm'
+import useForm from '../hooks/useForm'
 import React, { useMemo } from 'react'
-import axios from 'axios'
 
 function MyForm() {
   // 用 useMemo 缓存 validators 对象
   const validators = useMemo(() => {
     return {
-      name: (value) => {
-        // 要求 name 的长度不得小于 2
-        if (value.length < 2) return 'Name length should be no less than 2.'
-        return null
+      name: (name) => {
+        //调用接口
+        return $axios.request({
+          url: '',
+          data: {
+            name,
+          },
+        })
       },
       email: (value) => {
         // 简单的实现一个 email 验证逻辑：必须包含 @ 符号。

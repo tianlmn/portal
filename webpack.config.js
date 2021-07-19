@@ -70,6 +70,10 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({
       React: 'react',
+      $axios: [
+        path.resolve(path.join(__dirname, './src/tools/request.js')),
+        'default',
+      ],
     }),
   ],
 }

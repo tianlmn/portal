@@ -9,7 +9,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:prettier/recommended',
   ],
-  plugins: ['react', 'html'],
+  plugins: ['react', 'html', 'react-hooks'],
   parser: '@babel/eslint-parser',
   parserOptions: {
     sourceType: 'module',
@@ -34,5 +34,11 @@ module.exports = {
     'no-unused-vars': 1,
     'react/prop-types': 0,
     'react/display-name': 0,
+    'react-hooks/rules-of-hooks': 2,
+    'react-hooks/exhaustive-deps': 1,
+  },
+  globals: {
+    $axios: true,
+    React: true,
   },
 }
