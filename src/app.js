@@ -8,6 +8,7 @@ import React, {
 import useWindowSize from './hook/usewindowsize'
 import usePreValue from './hook/usePreValue'
 import MyForm from './component/myForm'
+import FancyInput from './hook/FancyInput'
 import './app.css'
 
 const App = function () {
@@ -30,6 +31,7 @@ const App = function () {
       <WindowSize></WindowSize>
       <PreValue time={time}></PreValue>
       <MyForm />
+      <FancyInputWrapper />
       <input type="button" value="click" />
     </Foo>
   )
@@ -44,16 +46,29 @@ const PreValue = ({ time }) => {
   )
 }
 
+const FancyInputWrapper = () => {
+  const fancyInputRef = useRef()
+
+  return (
+    <div>
+      <FancyInput ref={fancyInputRef} />
+      <button onClick={() => console.log(fancyInputRef.current)}>
+        父组件访问子组件的实例属性
+      </button>
+    </div>
+  )
+}
+
 const Foo = forwardRef((props, ref) => {
   return <div ref={ref}>{props.children}</div>
 })
 
 const Counter = () => {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState({ a: 0 })
   const [countcb, setCountcb] = useState(0)
   function handleClick() {
     setTimeout(() => {
-      setCount(count + 1)
+      setCount({ a: ++count.a })
     }, 2000)
   }
   function handleClickFn() {
@@ -65,7 +80,7 @@ const Counter = () => {
   }
   return (
     <>
-      Count: {count}
+      Count: {count.a}
       Countcb: {countcb}
       <button onClick={handleClick}>+</button>
       <button onClick={handleClickFn}>+</button>

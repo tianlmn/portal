@@ -1,5 +1,6 @@
 import useForm from '../hook/useForm'
 import React, { useMemo } from 'react'
+import axios from 'axios'
 
 function MyForm() {
   // 用 useMemo 缓存 validators 对象
