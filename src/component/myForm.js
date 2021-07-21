@@ -7,12 +7,15 @@ function MyForm() {
     return {
       name: (name) => {
         //调用接口
-        return $axios.request({
-          url: '',
-          data: {
-            name,
-          },
-        })
+
+        // return $axios.request({
+        //   url: '/greeting',
+        //   data: {
+        //     name,
+        //   },
+        // })
+
+        return Promise.resolve({ errorCode: name })
       },
       email: (value) => {
         // 简单的实现一个 email 验证逻辑：必须包含 @ 符号。

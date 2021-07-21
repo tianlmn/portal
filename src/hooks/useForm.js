@@ -16,16 +16,25 @@ const useForm = (initialValues = {}, validators = {}) => {
 
       // 如果存在验证函数，则调用验证用户输入
       if (validators[name]) {
-        const err = Promise.resolve(validators[name](value))
+        const err = validators[name](value)
         let errMsg = err
-        if (err instanceof Object && err.errorCode !== 0) {
+        if (err instanceof Promise) {
           errMsg = err.message
+          err.then((data) => {
+            const { errorCode } = data
+            setErrors((errors) => ({
+              ...errors,
+              // 如果返回错误信息，则将其设置到 errors 状态，否则清空错误状态
+              [name]: errorCode || null,
+            }))
+          })
+        } else {
+          setErrors((errors) => ({
+            ...errors,
+            // 如果返回错误信息，则将其设置到 errors 状态，否则清空错误状态
+            [name]: errMsg || null,
+          }))
         }
-        setErrors((errors) => ({
-          ...errors,
-          // 如果返回错误信息，则将其设置到 errors 状态，否则清空错误状态
-          [name]: errMsg || null,
-        }))
       }
     },
     [validators]
