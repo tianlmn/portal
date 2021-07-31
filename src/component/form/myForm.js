@@ -1,5 +1,7 @@
-import useForm from '../hooks/useForm'
+import useForm from '../../hooks/useForm'
 import React, { useMemo } from 'react'
+import './index.scss'
+import _ from 'lodash'
 
 function MyForm() {
   // 用 useMemo 缓存 validators 对象
@@ -26,20 +28,26 @@ function MyForm() {
   }, [])
   // 从 useForm 的返回值获取 errors 状态
   const { values, errors, setFieldValue } = useForm({}, validators)
-  // UI 渲染逻辑...
 
+  const handleInput = (type) => (ev) => {
+    setFieldValue(type, ev.target.value)
+  }
+
+  const prefix = 'myform'
   return (
-    <form id="myform">
+    <form className={`${prefix}`}>
       <div>
         <label>
           name:
           <input
             name="name"
             value={values.name}
-            onChange={(evt) => setFieldValue('name', evt.target.value)}
+            onChange={handleInput('name')}
           />
         </label>
-        {!!errors.name && <div>{errors.name}</div>}
+        {!!errors.name && (
+          <div className={`${prefix}-error`}>{errors.name}</div>
+        )}
       </div>
 
       <div>
@@ -48,10 +56,12 @@ function MyForm() {
           <input
             email="password"
             value={values.email}
-            onChange={(evt) => setFieldValue('email', evt.target.value)}
+            onChange={handleInput('email')}
           />
         </label>
-        {!!errors.email && <div>{errors.email}</div>}
+        {!!errors.email && (
+          <div className={`${prefix}-error`}>{errors.email}</div>
+        )}
       </div>
 
       <label>

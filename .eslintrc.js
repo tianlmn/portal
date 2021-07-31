@@ -40,5 +40,6 @@ module.exports = {
   globals: {
     $axios: true,
     React: true,
+    _: true,
   },
 }

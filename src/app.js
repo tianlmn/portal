@@ -7,7 +7,7 @@ import React, {
 } from 'react'
 import useWindowSize from './hooks/usewindowsize'
 import usePreValue from './hooks/usePreValue'
-import MyForm from './component/myForm'
+import MyForm from './component/form/myForm'
 import FancyInput from './hooks/FancyInput'
 import useSingleton from './hooks/useSingleton'
 import './app.css'
